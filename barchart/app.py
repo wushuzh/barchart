@@ -5,6 +5,7 @@ from bokeh.models.sources import ColumnDataSource
 from bokeh.models import (FactorRange, Range1d, LinearAxis, Grid)
 from bokeh.plotting import figure
 from bokeh.models.glyphs import VBar
+from bokeh.resources import INLINE
 
 
 app = Flask(__name__)
@@ -25,7 +26,9 @@ def cahrt(bars_count):
     script, div = components(plot)
 
     return render_template("chart.html", bars_count=bars_count,
-                           the_div=div, the_script=script)
+                           the_div=div, the_script=script,
+                           js_resources=INLINE.render_js(),
+                           css_resources=INLINE.render_css())
 
 
 def create_bar_chart(data, title, x_name, y_name):

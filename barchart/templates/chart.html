@@ -2,18 +2,12 @@
 <html>
     <head>
         <title>Bar charts with Bokeh!</title>
-        <link
-            href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css"
-            rel="stylesheet" type="text/css">
-        <link
-            href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.css"
-            rel="stylesheet" type="text/css">
+        {{ css_resources|indent(4)|safe }}
     </head>
     <body>
         <h1>Bugs found over the past {{ bars_count }} days</h1>
         {{ the_div|safe }}
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
-        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+        {{ js_resources|indent(4)|safe }}
         {{ the_script|safe }}
     </body>
 </html>
