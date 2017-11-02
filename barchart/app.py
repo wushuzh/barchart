@@ -34,7 +34,8 @@ def cahrt(bars_count):
                            css_resources=INLINE.render_css())
 
 
-def create_bar_chart(data, title, x_name, y_name, hover_tool=None):
+def create_bar_chart(data, title, x_name, y_name, hover_tool=None,
+                     width=1200, height=300):
     """Creates a barchart plot with the exact styling for the centcom
        dashboard, Pass in data as a dictionary, desired plot title,
        name of x axis, y axis.
@@ -47,7 +48,9 @@ def create_bar_chart(data, title, x_name, y_name, hover_tool=None):
     if hover_tool:
         tools = [hover_tool, ]
 
-    plot = figure(title=title, x_range=xdr, y_range=ydr, tools=tools)
+    plot = figure(title=title, x_range=xdr, y_range=ydr, tools=tools,
+                  plot_width=width, plot_height=height,
+                  toolbar_location="above")
 
     glyph = VBar(x=x_name, width=.8, top=y_name, fill_color="#e12127")
     plot.add_glyph(source, glyph)
@@ -59,6 +62,10 @@ def create_bar_chart(data, title, x_name, y_name, hover_tool=None):
     plot.add_layout(Grid(dimension=1, ticker=yaxis.ticker))
     plot.yaxis.axis_label = "Bugs found"
     plot.xaxis.axis_label = "Days after app deployment"
+
+    plot.toolbar.logo = None
+    plot.xgrid.grid_line_color = None
+    plot.xaxis.major_label_orientation = 1
 
     return plot
 
@@ -77,6 +84,7 @@ def create_hover_tool():
       </div>
     """
     return HoverTool(tooltips=hover_html)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
